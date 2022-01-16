@@ -1,0 +1,42 @@
+{
+    "go.useLanguageServer": true,
+    "go.alternateTools": {
+        "go-langserver": "gopls"
+    },
+    "go.delveConfig": {
+        "dlvLoadConfig": {
+            "followPointers": true,
+            "maxVariableRecurse": 1,
+            "maxStringLen": 10000,
+            "maxArrayValues": 500,
+            "maxStructFields": -1
+        }
+    },
+    "go.testFlags": [
+        "-v",
+    ],
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+        // "GOFLAGS": "-tags=postgres"
+    },
+    "go.testEnvFile": "${workspaceFolder}/.env",
+    "cSpell.words": [
+        "emptypb",
+        "gonic",
+        "grpcserver",
+        "protobuf",
+        "protoconv",
+        "rbns",
+        "utils"
+    ],
+    "gopls": {
+        "build.experimentalWorkspaceModule": true,
+        "ui.completion.usePlaceholders": true
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[vue]": {
+        "editor.tabSize": 2
+    }
+}

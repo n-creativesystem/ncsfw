@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  ncsfw-dev:
+    image: ncreativesystem/golang-developments:dev
+    tty: true
+    container_name: ncsfw-dev
+    volumes:
+      - .:/src/:delegated
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.ssh:/root/.ssh
+      - ~/.gitconfig:/root/.gitconfig
+    environment:
+      TZ: Asia/Tokyo

@@ -1,0 +1,21 @@
+{
+    "name": "ncsfw-dev",
+    "dockerComposeFile": [
+        "../docker-compose.yaml"
+    ],
+    "service": "ncsfw-dev",
+    "workspaceFolder": "/src",
+    "settings": {
+        "terminal.integrated.shell.linux": null
+    },
+    "extensions": [
+        "golang.Go",
+        "yokoe.vscode-postfix-go",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "christian-kohler.path-intellisense",
+        "streetsidesoftware.code-spell-checker",
+    ]
+}
