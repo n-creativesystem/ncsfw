@@ -15,10 +15,11 @@ type CookieOptions struct {
 	SameSiteMode     http.SameSite
 }
 
-func NewCookieOptions(conf *config.CookieConfig) CookieOptions {
+func NewCookieOptions(conf *config.Config) CookieOptions {
 	path := "/"
-	if len(conf.RootURL) > 0 {
-		path = conf.RootURL
+	rootURL := conf.RootURL.String()
+	if len(rootURL) > 0 {
+		path = rootURL
 	}
 	return CookieOptions{
 		Path:             path,
@@ -28,14 +29,14 @@ func NewCookieOptions(conf *config.CookieConfig) CookieOptions {
 	}
 }
 
-type getCookieOptionsFunc func(conf *config.CookieConfig) CookieOptions
+type getCookieOptionsFunc func(conf *config.Config) CookieOptions
 
 func DeleteCookie(w http.ResponseWriter, name string, getCookieOptions getCookieOptionsFunc) {
 	WriteCookie(w, name, "", -1, getCookieOptions)
 }
 
 func WriteCookie(w http.ResponseWriter, name string, value string, maxAge int, getCookieOptions getCookieOptionsFunc) {
-	var cfg *config.CookieConfig
+	var cfg *config.Config
 	if getCookieOptions == nil {
 		getCookieOptions = NewCookieOptions
 	}

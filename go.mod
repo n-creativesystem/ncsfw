@@ -4,9 +4,15 @@ go 1.16
 
 require (
 	github.com/go-playground/validator/v10 v10.10.0
+	github.com/google/wire v0.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	github.com/jmespath/go-jmespath v0.4.0
 	github.com/prometheus/client_golang v1.11.0
 	github.com/sirupsen/logrus v1.8.1
+	github.com/spf13/afero v1.8.0 // indirect
+	github.com/spf13/cast v1.4.1
+	github.com/spf13/cobra v1.3.0 // indirect
+	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.7.0
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.7
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.28.0
@@ -20,6 +26,7 @@ require (
 	go.opentelemetry.io/otel/sdk/export/metric v0.26.0
 	go.opentelemetry.io/otel/sdk/metric v0.26.0
 	go.opentelemetry.io/otel/trace v1.3.0
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
+	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	google.golang.org/grpc v1.43.0
 )

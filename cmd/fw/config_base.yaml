@@ -1,0 +1,41 @@
+setting:
+  root_url: http://localhost:8888
+cookie:
+  secure: true
+  same_site_disabled: false
+  same_site_mode: 0
+  key_pairs:
+oauth:
+  google:
+    enabled: false
+    allow_sign_up: true
+    client_id: some_client_id
+    client_secret:
+    scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+    auth_url: https://accounts.google.com/o/oauth2/auth
+    token_url: https://accounts.google.com/o/oauth2/token
+    api_url: https://www.googleapis.com/oauth2/v1/userinfo 
+    allowed_domains:
+    hosted_domain:
+  auth0:
+    enabled: false
+    allow_sign_up: true
+    client_id: some_client_id
+    client_secret: 
+    scopes: offline_access openid profile email
+    auth_url: https://{domain}.auth0.com/authorize
+    token_url: https://{domain}.auth0.com/oauth/token
+    api_url: https://{domain}.auth0.com/userinfo
+    allowed_domains:
+    hosted_domain:
+  line:
+    enabled: false
+    allow_sign_up: true
+    client_id: some_client_id
+    client_secret:
+    scopes: openid profile
+    auth_url: https://access.line.me/oauth2/v2.1/authorize
+    token_url: https://api.line.me/oauth2/v2.1/token
+    api_url: https://api.line.me/v2/profile
+    allowed_domains:
+    hosted_domain:

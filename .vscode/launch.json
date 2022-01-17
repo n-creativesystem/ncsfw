@@ -10,11 +10,29 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env",
+            // "envFile": "${workspaceFolder}/.env",
             "args": [
                 "run",
             ],
             // "buildFlags": "-tags=embed"
+        },
+        {
+            "name": "Example",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/examples",
+            // "envFile": "${workspaceFolder}/.env",
+        },
+        {
+            "name": "Commnad",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/cmd/fw",
+            "args": [
+                "config"
+            ]
         }
     ]
 }
