@@ -17,15 +17,15 @@ type CookieOptions struct {
 
 func NewCookieOptions(conf *config.Config) CookieOptions {
 	path := "/"
-	rootURL := conf.RootURL.String()
+	rootURL := conf.Setting.GetRootURL().String()
 	if len(rootURL) > 0 {
 		path = rootURL
 	}
 	return CookieOptions{
 		Path:             path,
-		Secure:           conf.CookieSecure,
-		SameSiteDisabled: conf.CookieSameSiteDisabled,
-		SameSiteMode:     conf.CookieSameSiteMode,
+		Secure:           conf.Cookie.Secure,
+		SameSiteDisabled: conf.Cookie.SameSiteDisabled,
+		SameSiteMode:     conf.Cookie.SameSiteMode,
 	}
 }
 
