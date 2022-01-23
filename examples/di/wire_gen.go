@@ -18,7 +18,7 @@ func Init(store sessions.Store) (*Injector, error) {
 	configConfig := config.NewConfig()
 	socialService := social.ProvideService(configConfig)
 	socialLoginImpl := handler.NewSocialLogin()
-	socailHandler := handler.NewSocialHandler(configConfig, socialService, store, socialLoginImpl)
-	injector := Injection(configConfig, socialService, socailHandler)
+	socialHandler := handler.NewSocialHandler(configConfig, socialService, store, socialLoginImpl)
+	injector := Injection(configConfig, socialService, socialHandler)
 	return injector, nil
 }

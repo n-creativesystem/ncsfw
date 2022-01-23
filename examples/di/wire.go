@@ -13,7 +13,7 @@ func Init(store sessions.Store) (*Injector, error) {
 	wire.Build(
 		register.Framework,
 		wire.Bind(new(handler.SocialLogin), new(*handler.SocialLoginImpl)),
-		wire.Bind(new(handler.SocialHandle), new(*handler.SocailHandler)),
+		wire.Bind(new(handler.SocialHandle), new(*handler.SocialHandler)),
 		handler.NewSocialLogin,
 		handler.NewSocialHandler,
 		Injection,

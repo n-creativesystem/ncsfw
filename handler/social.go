@@ -62,7 +62,7 @@ type SocialHandle interface {
 	Logout(c ncsfw.Context) error
 }
 
-type SocailHandler struct {
+type SocialHandler struct {
 	cfg           *config.Config
 	socialService social.Service
 	store         sessions.Store
@@ -70,16 +70,16 @@ type SocailHandler struct {
 	socilaLogin   SocialLogin
 }
 
-var _ SocialHandle = (*SocailHandler)(nil)
+var _ SocialHandle = (*SocialHandler)(nil)
 
-func NewSocialHandler(cfg *config.Config, socialService social.Service, store sessions.Store, socilaLogin SocialLogin) *SocailHandler {
+func NewSocialHandler(cfg *config.Config, socialService social.Service, store sessions.Store, socilaLogin SocialLogin) *SocialHandler {
 	if store == nil {
 		store = sessions.NewCookieStore([]byte("session-default"))
 	}
 	if socilaLogin == nil {
 		socilaLogin = &SocialLoginImpl{}
 	}
-	return &SocailHandler{
+	return &SocialHandler{
 		cfg:           cfg,
 		socialService: socialService,
 		store:         store,
@@ -88,7 +88,7 @@ func NewSocialHandler(cfg *config.Config, socialService social.Service, store se
 	}
 }
 
-func (s *SocailHandler) GetOAuthProvider(c ncsfw.Context) error {
+func (s *SocialHandler) GetOAuthProvider(c ncsfw.Context) error {
 	result := make(map[string]interface{})
 	mp := s.socialService.GetOAuthInfoProviders()
 	for key, value := range mp {
@@ -104,7 +104,7 @@ func (s *SocailHandler) GetOAuthProvider(c ncsfw.Context) error {
 	return nil
 }
 
-func (s *SocailHandler) OAuthLogin(c ncsfw.Context) error {
+func (s *SocialHandler) OAuthLogin(c ncsfw.Context) error {
 	r := c.Request()
 	ctx := r.Context()
 	session, err := s.store.Get(r, OauthSessionName)
@@ -267,13 +267,13 @@ func (s *SocailHandler) OAuthLogin(c ncsfw.Context) error {
 	return nil
 }
 
-func (s *SocailHandler) handleOAuthLoginError(c ncsfw.Context, err response.ErrorResponse) {
+func (s *SocialHandler) handleOAuthLoginError(c ncsfw.Context, err response.ErrorResponse) {
 	s.log.ErrorWithContext(c.Request().Context(), err, "login")
 	u := path.Join(s.cfg.Setting.GetRootURL().Path, "/login")
 	redirect(c, u)
 }
 
-func (s *SocailHandler) Logout(c ncsfw.Context) error {
+func (s *SocialHandler) Logout(c ncsfw.Context) error {
 	r := c.Request()
 	session, err := s.store.Get(r, OauthSessionName)
 	if err != nil {
@@ -286,7 +286,7 @@ func (s *SocailHandler) Logout(c ncsfw.Context) error {
 	return nil
 }
 
-func (hs *SocailHandler) ValidateRedirectTo(redirectTo string) error {
+func (hs *SocialHandler) ValidateRedirectTo(redirectTo string) error {
 	to, err := url.Parse(redirectTo)
 	if err != nil {
 		return ErrInvalidRedirectTo
