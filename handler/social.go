@@ -32,15 +32,15 @@ const (
 )
 
 type SocialLogin interface {
-	Validate(connector social.SocialConnector, userInfo *social.BasicUserInfo) error
+	Validate(ctx context.Context, connector social.SocialConnector, userInfo *social.BasicUserInfo) error
 	BuildExternalUserInfo(ctx context.Context, token *oauth2.Token, socialUser *social.BasicUserInfo, providerName string) models.LoginUser
-	LoginComplete(loginUser models.LoginUser, isSignUpAllowed bool) error
+	LoginComplete(ctx context.Context, loginUser models.LoginUser, isSignUpAllowed bool) error
 }
 
 type SocialLoginImpl struct {
 }
 
-func (s *SocialLoginImpl) Validate(connector social.SocialConnector, userInfo *social.BasicUserInfo) error {
+func (s *SocialLoginImpl) Validate(ctx context.Context, connector social.SocialConnector, userInfo *social.BasicUserInfo) error {
 	return nil
 }
 
@@ -48,7 +48,7 @@ func (s *SocialLoginImpl) BuildExternalUserInfo(ctx context.Context, token *oaut
 	return models.NewLoginUser(socialUser.Id, socialUser.Name, socialUser.Email, providerName, token)
 }
 
-func (s *SocialLoginImpl) LoginComplete(loginUser models.LoginUser, isSignUpAllowed bool) error {
+func (s *SocialLoginImpl) LoginComplete(ctx context.Context, loginUser models.LoginUser, isSignUpAllowed bool) error {
 	return nil
 }
 
@@ -220,7 +220,7 @@ func (s *SocialHandler) OAuthLogin(c ncsfw.Context) error {
 		return nil
 	}
 
-	if err := s.socilaLogin.Validate(connector, userInfo); err != nil {
+	if err := s.socilaLogin.Validate(ctx, connector, userInfo); err != nil {
 		s.handleOAuthLoginError(c, response.ErrJsonWithStatus(http.StatusUnauthorized, "login provider didn't return an email address", nil))
 		return nil
 	}
@@ -239,7 +239,7 @@ func (s *SocialHandler) OAuthLogin(c ncsfw.Context) error {
 
 	loginUser := s.socilaLogin.BuildExternalUserInfo(ctx, token, userInfo, name)
 	session.Values[loginKey] = loginUser.Serialize()
-	if err := s.socilaLogin.LoginComplete(loginUser, connector.IsSignUpAllowed()); err != nil {
+	if err := s.socilaLogin.LoginComplete(ctx, loginUser, connector.IsSignUpAllowed()); err != nil {
 		s.log.ErrorWithContext(ctx, err, "login complete error")
 		u := path.Join(s.cfg.Setting.GetRootURL().Path, "/logout")
 		redirect(c, u)
