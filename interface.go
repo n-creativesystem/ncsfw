@@ -3,6 +3,7 @@ package ncsfw
 import (
 	"net/http"
 
+	"github.com/n-creativesystem/ncsfw/binding"
 	"github.com/n-creativesystem/ncsfw/logger"
 	"github.com/n-creativesystem/ncsfw/models"
 )
@@ -36,6 +37,10 @@ type Context interface {
 	Redirect(code int, url string)
 
 	BindJSON(obj interface{}) error
+	BindQuery(obj interface{}) error
+	BindParameter(obj interface{}) error
+	MustBindWith(obj interface{}, b binding.Binding) error
+
 	Query(key string) string
 	GetHeader(key string) string
 }

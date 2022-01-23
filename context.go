@@ -114,6 +114,17 @@ func (c *context) BindJSON(obj interface{}) error {
 	return c.MustBindWith(obj, binding.JSON)
 }
 
+func (c *context) BindQuery(obj interface{}) error {
+	return c.MustBindWith(obj, binding.Query)
+}
+
+func (c *context) BindParameter(obj interface{}) error {
+	if err := c.ShouldBindUri(obj); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (c *context) MustBindWith(obj interface{}, b binding.Binding) error {
 	if err := c.ShouldBindWith(obj, b); err != nil {
 		return err
@@ -162,6 +173,14 @@ func (c *context) contentType() string {
 func (c *context) ShouldBind(obj interface{}) error {
 	b := binding.Default(c.request.Method, c.contentType())
 	return c.ShouldBindWith(obj, b)
+}
+
+func (c *context) ShouldBindUri(obj interface{}) error {
+	m := make(map[string][]string)
+	for _, v := range *c.params {
+		m[v.Key] = []string{v.Value}
+	}
+	return binding.Uri.BindUri(m, obj)
 }
 
 func (c *context) RemoteIP() string {
