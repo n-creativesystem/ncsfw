@@ -28,6 +28,6 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v0.26.0
 	go.opentelemetry.io/otel/trace v1.3.0
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
-	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	google.golang.org/grpc v1.43.0
 )
